@@ -17,30 +17,31 @@ GPS Data → Velocity Correction LSTM → Corrected Velocities
 Fused Trajectory
 
 ## Installation
-
+```bash
 git clone https://github.com/Fipana/gps-imu-trajectory-fusion.git
 cd gps-imu-trajectory-fusion
 pip install -r requirements.txt
-
+```
 
 ## Usage
 
 ### Training
+```bash
 bashpython scripts/train.py --config configs/train_config.yaml
-
+```
 
 ### Evaluation
-
+```bash
 python scripts/evaluate.py \
     --model velocity_correction_model.pth \
     --ronin_dir ronin_predictions/unseen \
     --data_dir data/unseen_subjects_test_set \
     --split unseen
-
+```
 
 
 ## Project Structure
-
+```bash
 gps-imu-trajectory-fusion/
 ├── src/
 │   ├── data/           # Dataset and loaders
@@ -51,23 +52,23 @@ gps-imu-trajectory-fusion/
 ├── scripts/            # Training and evaluation
 ├── configs/            # Configuration files
 └── notebooks/          # Jupyter notebooks
-
+```
 
 ## Key Features
 
-Velocity-level fusion for stable integration
-HDOP-aware weighting prevents trusting poor GPS
-GPS dropout augmentation for robustness
-Temporal decay strategy for extended dropouts
+- Velocity-level fusion for stable integration
+- HDOP-aware weighting prevents trusting poor GPS
+- GPS dropout augmentation for robustness
+- Temporal decay strategy for extended dropouts
 
 ## LLM Usage Declaration
 LLMs were used for:
 
-Code organization and modularization
-Documentation and formatting
-Debugging assistance
+- Code organization and modularization
+- Documentation and formatting
+- Debugging assistance
 
 ## References
 
-RoNIN: Herath et al., "Robust Neural Inertial Navigation in the Wild" (2020)
-Dataset: FRDR RoNIN Dataset with Synthetic GPS
+- RoNIN: Herath et al., "Robust Neural Inertial Navigation in the Wild" (2020)
+- Dataset: FRDR RoNIN Dataset with Synthetic GPS
