@@ -16,21 +16,21 @@ from src.evaluation.metrics import evaluate_on_sequences
 
 def main(args):
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    
+
     # Load model
     model = VelocityCorrectionLSTM()
     model.load_state_dict(torch.load(args.model))
     model = model.to(device)
     model.eval()
-    
+
     # Load sequences
-    seq_names = [f.stem.replace('_gsn', '') 
+    seq_names = [f.stem.replace('_gsn', '')
                  for f in Path(args.ronin_dir).glob('*_gsn.npy')]
     sequences = load_aligned_sequences(seq_names, args.ronin_dir, args.data_dir)
-    
+
     # Evaluate
     results = evaluate_on_sequences(model, sequences, device, args.split.upper())
-    
+
     # Save results
     output_path = Path(args.output_dir) / f'results_{args.split}.csv'
     output_path.parent.mkdir(parents=True, exist_ok=True)

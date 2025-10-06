@@ -33,10 +33,10 @@ class VelocityCorrectionLSTM(nn.Module):
     def forward(self, x):
         """
         Forward pass
-        
+
         Args:
             x: Input tensor of shape (batch, seq_len, input_dim)
-            
+
         Returns:
             Velocity corrections of shape (batch, seq_len, 2)
         """
