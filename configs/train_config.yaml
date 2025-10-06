@@ -1,0 +1,28 @@
+# Training configuration for GPS-IMU trajectory fusion
+
+data:
+  seen_dir: "data/seen_subjects_test_set"
+  unseen_dir: "data/unseen_subjects_test_set"
+  ronin_seen_dir: "ronin_predictions/seen"
+  ronin_unseen_dir: "ronin_predictions/unseen"
+
+model:
+  input_dim: 9
+  hidden_dim: 64
+  num_layers: 2
+  dropout: 0.3
+
+training:
+  num_epochs: 50
+  learning_rate: 0.001
+  batch_size: 32
+  weight_decay: 0.0001
+  patience: 8
+  window_size: 200
+  stride: 100
+  train_ratio: 0.8
+
+fusion:
+  hdop_threshold: 2.0
+  max_correction: 0.15
+  lambda_mag: 0.001
