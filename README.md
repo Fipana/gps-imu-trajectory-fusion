@@ -17,10 +17,11 @@ GPS Data → Velocity Correction LSTM → Corrected Velocities
 Fused Trajectory
 
 ## Installation
-```bash
+
 git clone https://github.com/Fipana/gps-imu-trajectory-fusion.git
 cd gps-imu-trajectory-fusion
 pip install -r requirements.txt
+
 
 ## Usage
 
@@ -36,9 +37,6 @@ python scripts/evaluate.py \
     --data_dir data/unseen_subjects_test_set \
     --split unseen
 
-### Results
-
-MetricRoNIN BaselineFused (Ours)ImprovementRMSEX.XX mX.XX mX.X% ↓RTEX.XX mX.XX mX.X% ↓
 
 
 ## Project Structure

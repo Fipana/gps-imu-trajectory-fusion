@@ -8,7 +8,7 @@ import torch.nn as nn
 class VelocityCorrectionLSTM(nn.Module):
     """
     Bidirectional LSTM for predicting velocity corrections to RoNIN outputs.
-    for real-time inference: Unidirectional LSTM is suitable.
+
     Args:
         input_dim: Input feature dimension (default: 9)
         hidden_dim: LSTM hidden dimension (default: 64)
@@ -27,19 +27,10 @@ class VelocityCorrectionLSTM(nn.Module):
             nn.Linear(hidden_dim * 2, 128),
             nn.ReLU(inplace=True),
             nn.Dropout(dropout),
-            nn.Linear(128, 2)  # Output: velocity corrections (vx, vy)
+            nn.Linear(128, 2)  # Output: (vx, vy) corrections
         )
 
     def forward(self, x):
-        """
-        Forward pass
-
-        Args:
-            x: Input tensor of shape (batch, seq_len, input_dim)
-
-        Returns:
-            Velocity corrections of shape (batch, seq_len, 2)
-        """
         if not x.is_contiguous():
             x = x.contiguous()
         if hasattr(self.lstm, "flatten_parameters"):
