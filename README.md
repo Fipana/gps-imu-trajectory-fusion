@@ -30,9 +30,9 @@ pip install -r requirements.txt
 
 ## (Optional) set paths for your machine
 ```bash
-export DATA_DIR=/mnt/datasets/frdr
-export MODEL_DIR=./models
-export PROJECT_DIR=./runs/exp01
+export DATA_DIR=/GPSRoNIN/FRDR_dataset/Data
+export MODEL_DIR=/GPSRoNIN/FRDR_dataset/Pretrained_Models
+export PROJECT_DIR=/GPSRoNIN/gps-imu-project
 
 ```
 
@@ -46,11 +46,11 @@ python scripts/train.py --config configs/train_config.yaml
 ### Evaluation
 ```bash
 python scripts/evaluate.py \
+  --config configs/train_config.yaml \
   --model models/velocity_correction_model.pth \
-  --ronin_dir ronin_predictions/unseen \
-  --data_dir data/unseen_subjects_test_set \
   --split unseen \
   --output_dir results
+
 ```
 
 

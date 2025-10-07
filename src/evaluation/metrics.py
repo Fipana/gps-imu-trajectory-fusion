@@ -1,7 +1,7 @@
+# src/evaluation/metrics.py
 """Evaluation metrics and loop"""
 import numpy as np
 from tqdm import tqdm
-
 
 def compute_rmse(pred, gt):
     pred = np.asarray(pred, float)
@@ -10,7 +10,6 @@ def compute_rmse(pred, gt):
     if m.sum() == 0: return np.nan
     d = pred[m] - gt[m]
     return float(np.sqrt((d**2).sum(axis=1).mean()))
-
 
 def compute_rte(pred, gt, time_s, window_sec=60.0):
     t = np.asarray(time_s, float)
@@ -26,13 +25,13 @@ def compute_rte(pred, gt, time_s, window_sec=60.0):
     for i in range(0, len(t) - step, step // 2 if step > 2 else 1):
         sl = slice(i, i+step)
         m = valid[sl]
-        if m.sum() < max(5, step // 3): continue
+        if m.sum() < max(5, step // 3): 
+            continue
         d = pred[sl][m] - gt[sl][m]
         errs.append(np.sqrt((d**2).sum(axis=1).mean()))
     return float(np.mean(errs)) if errs else np.nan
 
-
-def evaluate_on_sequences(model, sequences, device, split_name="TEST"):
+def evaluate_on_sequences(model, sequences, device, split_name="TEST", **fusion_kwargs):
     import pandas as pd
     from ..inference.predictor import predict_sequence_with_corrections
 
@@ -40,7 +39,10 @@ def evaluate_on_sequences(model, sequences, device, split_name="TEST"):
     print(f"Evaluating on {split_name} ({len(sequences)} sequences)")
     print("-"*50)
     for seq in tqdm(sequences, desc=f"Evaluating {split_name}"):
-        fused_pos, _, gps_mask = predict_sequence_with_corrections(model, seq, device)
+        fused_pos, _, gps_mask = predict_sequence_with_corrections(
+            model, seq, device,
+            **fusion_kwargs  # <- pass YAML fusion params here
+        )
         rmse_fused = compute_rmse(fused_pos, seq['gt_pos'])
         rte_fused  = compute_rte(fused_pos, seq['gt_pos'], seq['time'])
         rmse_ronin = compute_rmse(seq['ronin_pos'], seq['gt_pos'])
