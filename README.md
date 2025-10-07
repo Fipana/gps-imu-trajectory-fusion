@@ -57,15 +57,23 @@ python scripts/evaluate.py \
 ## Project Structure
 ```bash
 gps-imu-trajectory-fusion/
-├── src/
-│   ├── data/           # Dataset and loaders
-│   ├── models/         # Model architecture
-│   ├── training/       # Training loop and loss
-│   ├── inference/      # Fusion logic
-│   └── evaluation/     # Metrics
-├── scripts/            # Training and evaluation
-├── configs/            # Configuration files
-└── notebooks/          # Jupyter notebooks
+├─ src/
+│  ├─ data/            # loaders + alignment
+│  ├─ models/          # VC-LSTM
+│  ├─ training/        # loss + trainer
+│  ├─ inference/       # fusion logic
+│  ├─ evaluation/      # metrics + eval loop
+│  └─ paths.py         # path managers
+├─ scripts/            # train.py, evaluate.py (use paths.py)
+├─ configs/            # YAML (repo-relative paths)
+├─ data/               # seen_subjects_test_set/, unseen_subjects_test_set
+├─ ronin_predictions/  # seen/, unseen/  (npy baselines; gitignored)
+├─ models/             # saved weights (gitignored)
+├─ runs/               # results/plots/logs (gitignored)
+├─ notebooks/
+├─ requirements.txt
+└─ .gitignore
+
 ```
 
 ## Key Features
