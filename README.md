@@ -26,6 +26,15 @@ GPS Data → Velocity Correction LSTM → Corrected Velocities
 
 Fused Trajectory 
 
+## Google Colab notebook (full pipeline)
+
+A Colab notebook covering the entire pipeline (data prep, RoNIN inference, training, evaluation, and visualization) is included [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/Fipana/gps-imu-trajectory-fusion/blob/main/home_assignment_zepp_health_NY.ipynb).
+
+
+## Datasets & pretrained assets (Google Drive)
+
+The modified dataset, the pretrained RoNIN baseline, and our fusion model artifacts (checkpoints, configs, logs) are available in a shared Google Drive folder:
+GPSRoNIN project — https://drive.google.com/drive/folders/1I_6yqpJD3aoogOKeUoDuoim0Xyxv3U_-?usp=drive_link
 
 ## Installation
 ```bash
@@ -71,15 +80,6 @@ python scripts/evaluate.py \
   --output_dir "results"
 
 ```
-## Google Colab notebook (full pipeline)
-
-A Colab notebook covering the entire pipeline (data prep, RoNIN inference, training, evaluation, and visualization) is included [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/Fipana/gps-imu-trajectory-fusion/blob/main/home_assignment_zepp_health_NY.ipynb).
-
-
-## Datasets & pretrained assets (Google Drive)
-
-The modified dataset, the pretrained RoNIN baseline, and our fusion model artifacts (checkpoints, configs, logs) are available in a shared Google Drive folder:
-GPSRoNIN project — https://drive.google.com/drive/folders/1I_6yqpJD3aoogOKeUoDuoim0Xyxv3U_-?usp=drive_link
 
 ## Project Structure
 ```bash
