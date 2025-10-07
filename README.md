@@ -1,13 +1,19 @@
 # GPS-Assisted Trajectory Prediction Using IMU Sensors
 
-Deep learning approach for robust trajectory estimation by fusing GPS and IMU sensor data using a velocity correction LSTM model on top of the RoNIN baseline.
 
-## Problem Statement
+Deep learning approach for robust trajectory estimation by fusing GPS and IMU sensor data using a velocity-correction LSTM model on top of the RoNIN baseline.
 
-This project addresses trajectory prediction for wearable devices in environments where GPS signals may be weak, noisy, or intermittent. We combine:
-- **IMU sensors** for continuous motion tracking
-- **GPS data** for position correction when signals are strong
-- **Deep learning** to predict velocity corrections
+## Overview
+
+We:
+
+- run RoNIN to get baseline 2D positions (*_gsn.npy),
+
+- train a Velocity Correction LSTM (VC-LSTM) that predicts velocity corrections using GPS-(HDOP) and availability,
+
+- fuse corrected IMU velocity with GPS to produce a robust trajectory.
+
+- Both training and evaluation are driven by a single YAML config (configs/train_config.yaml). Paths can be overridden via CLI flags so the project runs the same on Linux/Mac/Windows — no environment variables needed.
 
 ## Architecture
 IMU Data → RoNIN ResNet → Velocity Predictions
@@ -25,7 +31,13 @@ Fused Trajectory
 ```bash
 git clone https://github.com/Fipana/gps-imu-trajectory-fusion.git
 cd gps-imu-trajectory-fusion
+python -m venv .venv
+# Linux/Mac:
+. .venv/bin/activate
+# Windows PowerShell:
+# .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+
 ```
 
 ## (Optional) set paths for your machine
@@ -40,19 +52,34 @@ export PROJECT_DIR=/GPSRoNIN/gps-imu-project
 
 ### Training
 ```bash
-python scripts/train.py --config configs/train_config.yaml
+
+python scripts/train.py \
+  --config configs/train_config.yaml \
+  --project_dir "/ABS/PATH/TO/gps-imu-project" \   
+  --data_dir "/ABS/PATH/TO/seen_subjects_test_set" \
+  --output "models/velocity_correction_model.pth"
 ```
 
 ### Evaluation
 ```bash
 python scripts/evaluate.py \
   --config configs/train_config.yaml \
-  --model models/velocity_correction_model.pth \
+  --model "models/velocity_correction_model.pth" \
   --split unseen \
-  --output_dir results
+  --project_dir "/ABS/PATH/TO/gps-imu-project" \   
+  --data_dir "/ABS/PATH/TO/unseen_subjects_test_set" \
+  --output_dir "results"
 
 ```
+## Google Colab notebook (full pipeline)
 
+A Colab notebook covering the entire pipeline (data prep, RoNIN inference, training, evaluation, and visualization) is included under docs/.
+
+
+## Datasets & pretrained assets (Google Drive)
+
+The modified dataset, the pretrained RoNIN baseline, and our fusion model artifacts (checkpoints, configs, logs) are available in a shared Google Drive folder:
+GPSRoNIN project — https://drive.google.com/drive/folders/1I_6yqpJD3aoogOKeUoDuoim0Xyxv3U_-?usp=drive_link
 
 ## Project Structure
 ```bash
@@ -63,16 +90,16 @@ gps-imu-trajectory-fusion/
 │  ├─ training/        # loss + trainer
 │  ├─ inference/       # fusion logic
 │  ├─ evaluation/      # metrics + eval loop
-│  └─ paths.py         # path managers
-├─ scripts/            # train.py, evaluate.py (use paths.py)
-├─ configs/            # YAML (repo-relative paths)
-├─ data/               # seen_subjects_test_set/, unseen_subjects_test_set
-├─ ronin_predictions/  # seen/, unseen/  (npy baselines; gitignored)
-├─ models/             # saved weights (gitignored)
+│  └─ paths.py
+├─ scripts/            # train.py, evaluate.py
+├─ configs/            # YAML 
+├─ docs/               # Colab notebook(s), figures
+├─ ronin_predictions/  # seen/, unseen/ 
+├─ models/             # weights (gitignored)
 ├─ runs/               # results/plots/logs (gitignored)
-├─ notebooks/
 ├─ requirements.txt
 └─ .gitignore
+
 
 ```
 
