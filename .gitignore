@@ -1,48 +1,93 @@
-# Data
-data/
-*.hdf5
-*.csv
-*.npy
-*.zip
+# =========================
+# Project artifacts (ROOT ONLY)
+# =========================
+/data/
+/ronin_predictions/
+/results/
+/outputs/
+/plots/
+/models/
+/runs/
 
-# Models and outputs
+# Keep empty dirs with placeholders if you want them in git
+!/data/.gitkeep
+!/ronin_predictions/.gitkeep
+!/results/.gitkeep
+!/outputs/.gitkeep
+!/plots/.gitkeep
+!/models/.gitkeep
+!/runs/.gitkeep
+
+# =========================
+# Large/binary artifacts (anywhere)
+# =========================
 *.pt
 *.pth
-checkpoints/
-ronin_predictions/
-results/
-outputs/
-plots/
+*.ckpt
+*.onnx
+*.pb
+*.pkl
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.zip
+*.tar
+*.tar.gz
+*.7z
 
+# Logs
+*.log
+
+# =========================
 # Python
+# =========================
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
-env/
-venv/
-.venv
 *.egg-info/
-dist/
-build/
+.dist-info/
+.Python
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
 
+# Virtual envs
+.venv/
+venv/
+env/
+ENV/
+
+# Builds
+build/
+dist/
+
+# =========================
 # Jupyter
-.ipynb_checkpoints
+# =========================
+.ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# IDE
+# =========================
+# IDE / Editor
+# =========================
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS
+# =========================
+# OS cruft
+# =========================
 .DS_Store
 Thumbs.db
-*.log
 
-# Temporary
+# =========================
+# Temp files
+# =========================
 *.tmp
 *.bak
 *~
+
