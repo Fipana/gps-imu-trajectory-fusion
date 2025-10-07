@@ -12,7 +12,7 @@ We:
 
 - fuse corrected IMU velocity with GPS to produce a robust trajectory.
 
-- Both training and evaluation are driven by a single YAML config (configs/train_config.yaml). Paths can be overridden via CLI flags so the project runs the same on Linux/Mac/Windows — no environment variables needed.
+- Both training and evaluation are driven by a single YAML config (configs/train_config.yaml). 
 
 ## Architecture
 IMU Data → RoNIN ResNet → Velocity Predictions
@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 ```
 
-## (Optional) set paths for your machine
+## (Optional) set paths
 ```bash
 export DATA_DIR=/GPSRoNIN/FRDR_dataset/Data
 export MODEL_DIR=/GPSRoNIN/FRDR_dataset/Pretrained_Models
@@ -84,7 +84,6 @@ gps-imu-trajectory-fusion/
 │  └─ paths.py
 ├─ scripts/            # train.py, evaluate.py
 ├─ configs/            # YAML
-├─ docs/               # Colab notebook(s), figures
 ├─ ronin_predictions/  # seen/, unseen/
 ├─ models/             # weights (gitignored)
 ├─ runs/               # results/plots/logs (gitignored)
