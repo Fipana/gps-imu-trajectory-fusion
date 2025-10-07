@@ -73,7 +73,7 @@ python scripts/evaluate.py \
 ```
 ## Google Colab notebook (full pipeline)
 
-A Colab notebook covering the entire pipeline (data prep, RoNIN inference, training, evaluation, and visualization) is included under docs/.
+A Colab notebook covering the entire pipeline (data prep, RoNIN inference, training, evaluation, and visualization) is included [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/Fipana/gps-imu-trajectory-fusion/blob/main/home_assignment_zepp_health_NY.ipynb).
 
 
 ## Datasets & pretrained assets (Google Drive)
