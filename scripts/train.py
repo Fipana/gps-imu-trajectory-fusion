@@ -8,9 +8,11 @@ from pathlib import Path
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
+import os
 
-# Add repo root to sys.path
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
+from src.paths import get_paths
 
 from src.models.velocity_lstm import VelocityCorrectionLSTM
 from src.data.dataset import VelocityCorrectionDataset
@@ -34,15 +36,23 @@ def create_stratified_split(sequences, train_ratio=0.8):
     return train, val
 
 
+
+
 def main(args):
+    # CLI can override env vars for DATA/MODEL/PROJECT if you like
+    if args.data_dir:    os.environ["DATA_DIR"]    = str(Path(args.data_dir))
+    if args.model_dir:   os.environ["MODEL_DIR"]   = str(Path(args.model_dir))
+    if args.project_dir: os.environ["PROJECT_DIR"] = str(Path(args.project_dir))
+
+    P = get_paths()
+    REPO = Path(__file__).resolve().parents[1]
+
     with open(args.config, "r") as f:
         cfg = yaml.safe_load(f)
 
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    print(f"Using device: {device}")
-
-    seen_dir = cfg['data']['seen_dir']
-    ronin_seen_dir = cfg['data']['ronin_seen_dir']
+    # Convert repo-relative cfg paths to absolute
+    seen_dir       = REPO / cfg['data']['seen_dir']
+    ronin_seen_dir = REPO / cfg['data']['ronin_seen_dir']
 
     seq_names = [p.stem.replace("_gsn","") for p in Path(ronin_seen_dir).glob("*_gsn.npy")]
     sequences = load_aligned_sequences(seq_names, ronin_seen_dir, seen_dir)
@@ -81,4 +91,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, default="configs/train_config.yaml")
     parser.add_argument("--output", type=str, default="velocity_correction_model.pth")
+    ap.add_argument("--data_dir", type=str)    
+    ap.add_argument("--model_dir", type=str)   
+    ap.add_argument("--project_dir", type=str) 
     main(parser.parse_args())
+
+
+

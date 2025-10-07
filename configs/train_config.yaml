@@ -6,6 +6,7 @@ data:
   ronin_seen_dir: "ronin_predictions/seen"
   ronin_unseen_dir: "ronin_predictions/unseen"
 
+
 model:
   input_dim: 9
   hidden_dim: 64

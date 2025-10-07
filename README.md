@@ -23,20 +23,29 @@ cd gps-imu-trajectory-fusion
 pip install -r requirements.txt
 ```
 
+## (Optional) set paths for your machine
+```bash
+export DATA_DIR=/mnt/datasets/frdr
+export MODEL_DIR=./models
+export PROJECT_DIR=./runs/exp01
+
+```
+
 ## Usage
 
 ### Training
 ```bash
-bashpython scripts/train.py --config configs/train_config.yaml
+python scripts/train.py --config configs/train_config.yaml
 ```
 
 ### Evaluation
 ```bash
 python scripts/evaluate.py \
-    --model velocity_correction_model.pth \
-    --ronin_dir ronin_predictions/unseen \
-    --data_dir data/unseen_subjects_test_set \
-    --split unseen
+  --model models/velocity_correction_model.pth \
+  --ronin_dir ronin_predictions/unseen \
+  --data_dir data/unseen_subjects_test_set \
+  --split unseen \
+  --output_dir results
 ```
 
 
