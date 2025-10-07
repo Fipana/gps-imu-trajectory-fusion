@@ -5,16 +5,16 @@ import numpy as np
 from tqdm import tqdm
 from .loss import weighted_correction_loss
 
-
 def train_correction_model(train_loader, val_loader, model, device='cuda',
-                           num_epochs=50, lr=1e-3, weight_decay=1e-4, patience=8, save_path='model.pth'):
+                           num_epochs=50, lr=1e-3, weight_decay=1e-4, 
+                           patience=8, save_path='models/velocity_correction_model.pth'):
     model = model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         optimizer, mode='min', factor=0.5, patience=3
     )
     best_val_loss = float('inf')
-    patience, patience_counter = 8, 0
+    patience_counter = 0
     history = {'train': [], 'val': []}
 
     for epoch in range(num_epochs):
@@ -59,7 +59,7 @@ def train_correction_model(train_loader, val_loader, model, device='cuda',
             best_val_loss = avg_val
             patience_counter = 0
             torch.save(model.state_dict(), save_path)
-            print(f"  Best model saved (val={best_val_loss:.4f})")
+            print(f"  → Best model saved (val={best_val_loss:.4f})")
         else:
             patience_counter += 1
             if patience_counter >= patience:

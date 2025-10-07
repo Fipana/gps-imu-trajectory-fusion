@@ -1,6 +1,5 @@
 # GPS-Assisted Trajectory Prediction Using IMU Sensors
 
-
 Deep learning approach for robust trajectory estimation by fusing GPS and IMU sensor data using a velocity-correction LSTM model on top of the RoNIN baseline.
 
 ## Overview
@@ -24,17 +23,8 @@ GPS Data → Velocity Correction LSTM → Corrected Velocities
 
 ↓
 
-Fused Trajectory 
+Fused Trajectory
 
-## Google Colab notebook (full pipeline)
-
-A Colab notebook covering the entire pipeline (data prep, RoNIN inference, training, evaluation, and visualization) is included [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/189J9vjs-mYSZS0rgzj6gAbn9Mhkw4efY?usp=sharing).
-
-
-## Datasets & pretrained assets (Google Drive)
-
-The modified dataset, the pretrained RoNIN baseline, and our fusion model artifacts (checkpoints, configs, logs) are available in a shared Google Drive folder:
-GPSRoNIN project — https://drive.google.com/drive/folders/1I_6yqpJD3aoogOKeUoDuoim0Xyxv3U_-?usp=drive_link
 
 ## Installation
 ```bash
@@ -62,24 +52,23 @@ export PROJECT_DIR=/GPSRoNIN/gps-imu-project
 ### Training
 ```bash
 
-python scripts/train.py \
-  --config configs/train_config.yaml \
-  --project_dir "/ABS/PATH/TO/gps-imu-project" \   
-  --data_dir "/ABS/PATH/TO/seen_subjects_test_set" \
-  --output "models/velocity_correction_model.pth"
+python scripts/train.py   --config configs/train_config.yaml   --project_dir "/ABS/PATH/TO/gps-imu-project"   --data_dir "/ABS/PATH/TO/seen_subjects_test_set"   --output "models/velocity_correction_model.pth"
 ```
 
 ### Evaluation
 ```bash
-python scripts/evaluate.py \
-  --config configs/train_config.yaml \
-  --model "models/velocity_correction_model.pth" \
-  --split unseen \
-  --project_dir "/ABS/PATH/TO/gps-imu-project" \   
-  --data_dir "/ABS/PATH/TO/unseen_subjects_test_set" \
-  --output_dir "results"
+python scripts/evaluate.py   --config configs/train_config.yaml   --model "models/velocity_correction_model.pth"   --split unseen   --project_dir "/ABS/PATH/TO/gps-imu-project"   --data_dir "/ABS/PATH/TO/unseen_subjects_test_set"   --output_dir "results"
 
 ```
+## Google Colab notebook (full pipeline)
+
+A Colab notebook covering the entire pipeline (data prep, RoNIN inference, training, evaluation, and visualization) is included under docs/.
+
+
+## Datasets & pretrained assets (Google Drive)
+
+The modified dataset, the pretrained RoNIN baseline, and our fusion model artifacts (checkpoints, configs, logs) are available in a shared Google Drive folder:
+GPSRoNIN project — https://drive.google.com/drive/folders/1I_6yqpJD3aoogOKeUoDuoim0Xyxv3U_-?usp=drive_link
 
 ## Project Structure
 ```bash
@@ -92,9 +81,9 @@ gps-imu-trajectory-fusion/
 │  ├─ evaluation/      # metrics + eval loop
 │  └─ paths.py
 ├─ scripts/            # train.py, evaluate.py
-├─ configs/            # YAML 
+├─ configs/            # YAML
 ├─ docs/               # Colab notebook(s), figures
-├─ ronin_predictions/  # seen/, unseen/ 
+├─ ronin_predictions/  # seen/, unseen/
 ├─ models/             # weights (gitignored)
 ├─ runs/               # results/plots/logs (gitignored)
 ├─ requirements.txt

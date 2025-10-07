@@ -1,11 +1,9 @@
-# Training configuration for GPS-IMU trajectory fusion
-
+# Training configuration
 data:
   seen_dir: "data/seen_subjects_test_set"
   unseen_dir: "data/unseen_subjects_test_set"
   ronin_seen_dir: "ronin_predictions/seen"
   ronin_unseen_dir: "ronin_predictions/unseen"
-
 
 model:
   input_dim: 9

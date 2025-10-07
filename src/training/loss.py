@@ -1,11 +1,8 @@
 """Custom loss functions"""
 import torch
 
-
 def weighted_correction_loss(pred_correction, target_correction, mask, hdop, lambda_mag=1e-3):
-    """
-    HDOP-weighted loss: supervise where GPS exists; weight by quality; penalize magnitude more when GPS is good.
-    """
+    """HDOP-weighted loss with magnitude regularization"""
     valid = mask > 0.5
 
     target_safe = torch.where(valid.expand_as(target_correction),
