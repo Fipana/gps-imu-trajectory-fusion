@@ -11,10 +11,15 @@ This project addresses trajectory prediction for wearable devices in environment
 
 ## Architecture
 IMU Data → RoNIN ResNet → Velocity Predictions
+
 ↓
+
 GPS Data → Velocity Correction LSTM → Corrected Velocities
+
 ↓
-Fused Trajectory
+
+Fused Trajectory 
+
 
 ## Installation
 ```bash
